@@ -15,13 +15,9 @@
       .close-icon:hover {
         color: black;
       }
-      &.active,
-      &.is-dragging {
-        background-color: darken(@tab-bar-background-color, 15%);
-      }
       &,
       &.active .close-icon:hover {
-        color: darken(@tab-bar-background-color, 25%);
+        color: darken(@tab-bar-background-color, 50%);
       }
     }
     .color () when (lightness(@tab-bar-background-color) <= 50%) {
@@ -29,14 +25,15 @@
       .close-icon:hover {
         color: white;
       }
-      &.active,
-      &.is-dragging {
-        background-color: lighten(@tab-bar-background-color, 15%);
-      }
       &,
       &.active .close-icon:hover {
-        color: lighten(@tab-bar-background-color, 25%);
+        color: lighten(@tab-bar-background-color, 50%);
       }
+    }
+    &:hover,
+    &.active,
+    &.is-dragging {
+      background-color: lighten(@tab-bar-background-color, 15%);
     }
     .color;
 

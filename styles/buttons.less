@@ -14,30 +14,29 @@ select.form-control {
   height: auto;
 }
 .btn-color(@bg) {
+  &.selected,
+  &.selected:focus {
+    color: black !important;
+    background-color: darken(@bg, 15%) !important;
+  }
+  &:hover,
+  &:focus {
+    color: black !important;
+    outline: none !important;
+    background-color: lighten(@bg, 15%) !important;
+  }
+  &:active {
+    color: black !important;
+    background-color: darken(@bg, 15%) !important;
+  }
   .color () when (lightness(@bg) > 50%) {
-    &.selected {
-      color: black;
-      background-color: lighten(@bg, 15%);
-    }
-    &:hover {
-      color: black;
-      background-color: darken(@bg, 15%);
-    }
-    color: darken(@bg, 50%);
+    color: darken(@bg, 50%) !important;
   }
   .color () when (lightness(@bg) <= 50%) {
-    &.selected {
-      color: white;
-      background-color: darken(@bg, 15%);
-    }
-    &:hover {
-      color: white;
-      background-color: lighten(@bg, 15%);
-    }
-    color: lighten(@bg, 50%);
+    color: lighten(@bg, 50%) !important;
   }
   .color;
-  background-color: @bg;
+  background-color: @bg !important;
 }
 .btn,
 select.form-control {
