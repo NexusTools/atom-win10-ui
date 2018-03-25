@@ -10,17 +10,42 @@
   border-bottom: 1px solid @base-border-color;
 
   .tab {
-    color: @text-color;
+    .color () when (lightness(@tab-bar-background-color) > 50%) {
+      &.active,
+      .close-icon:hover {
+        color: black;
+      }
+      &.active,
+      &.is-dragging {
+        background-color: darken(@tab-bar-background-color, 15%);
+      }
+      &,
+      &.active .close-icon:hover {
+        color: darken(@tab-bar-background-color, 25%);
+      }
+    }
+    .color () when (lightness(@tab-bar-background-color) <= 50%) {
+      &.active,
+      .close-icon:hover {
+        color: white;
+      }
+      &.active,
+      &.is-dragging {
+        background-color: lighten(@tab-bar-background-color, 15%);
+      }
+      &,
+      &.active .close-icon:hover {
+        color: lighten(@tab-bar-background-color, 25%);
+      }
+    }
+    .color;
+
     height: @tab-height;
     line-height: @tab-height;
     font-size: @font-size;
+    transition: background .2s;
     border-right: 1px solid @tab-border-color;
     background-color: @tab-background-color;
-    &.active {
-      color: @text-color-selected;
-      background-color: @tab-background-color-active;
-    }
-
 
     // Modified Icon (the circle) -------------------
     &.modified:not(:hover) .close-icon {
@@ -29,24 +54,11 @@
       margin-top: -3px;
       border-color: @text-color-info;
     }
-    &.modified:hover .close-icon {
-      color: currentColor;
-    }
-
-
-    // Close Icon (the X) -------------------
-    .close-icon:hover {
-      color: @text-color-selected;
-    }
-    &.active .close-icon:hover {
-      color: @text-color;
-    }
 
 
     // Dragging -------------------
     // Styles get applied while dragging a tab
     &.is-dragging {
-      background: darken(@tab-background-color, 10%);
       border-color: transparent;
       opacity: .5;
       & .close-icon {

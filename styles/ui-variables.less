@@ -10,6 +10,7 @@
 // Try to edit some of the values below to see your theme change.
 // A good start is to change the color of the `@base-background-color` variable.
 
+@import "ui-config";
 
 // Text Colors
 @text-color:           hsl(0,0%,66%);
@@ -55,16 +56,16 @@
 @overlay-background-color: lighten(@base-background-color, 5%);
 @overlay-border-color:     @base-border-color;
 
-@button-background-color:          lighten(@base-background-color, 10%);
+@button-background-color:          @theme-accent-color;
 @button-background-color-hover:    lighten(@button-background-color, 12%);
 @button-background-color-selected: @button-background-color-hover;
 @button-border-color:              @base-border-color;
 
-@tab-bar-background-color:    @base-background-color;
+@tab-bar-background-color:    @theme-accent-color;
 @tab-bar-border-color:        @base-border-color;
 @tab-background-color:        @tab-bar-background-color;
 @tab-background-color-active: lighten(@tab-bar-background-color, 10%);
-@tab-border-color:            @base-border-color;
+@tab-border-color:            darken(@theme-accent-color, 25%);
 
 @tree-view-background-color: @base-background-color;
 @tree-view-border-color:     @base-border-color;
@@ -77,8 +78,8 @@
 @ui-site-color-5: #EBDD5B;             // yellow
 
 // Sizes
-@font-size: 12px;
-@input-font-size: 14px;
+@font-size: @theme-font-size;
+@input-font-size: @theme-font-size + 2px;
 
 @disclosure-arrow-size: 12px;
 
