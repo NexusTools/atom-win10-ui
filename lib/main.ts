@@ -16,6 +16,7 @@ const isWin8 = isWin && /^6\.[23456789]\./.test(release);
 const isWin10 = isWin && !isWin8 && /^10\./.test(release);
 const isWin10or8 = isWin10 || isWin8;
 
+var changedAccentColor: boolean;
 const configPath = `${__dirname}/../styles/ui-config.less`;
 var currentAccent: string;
 const ACCENT_VALUE = isWin10 ? 'AccentColorMenu' : 'AccentColor';
@@ -24,7 +25,7 @@ const WINDOWS_ACCENT_KEY_REG = isWin10or8 ? new registry({
   key: '\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Accent'
 }) : undefined;
 const writeConfig = function() {
-  fs.writeFile(configPath, `@theme-font-size: ${win10.get('fontSize')}px;\r\n@theme-accent-color: ${win10.get('themeAccentColor').toHexString()};`, function(err) {
+  fs.writeFile(configPath, `@theme-font-size: ${_atom.config.get('win10-ui.fontSize')}px;\r\n@theme-accent-color: ${_atom.config.get('win10-ui.themeAccentColor').toHexString()};`, function(err) {
     if(err)
       console.error(err.stack);
     else
@@ -45,7 +46,11 @@ const updateAccent = function(writeConfigOnFail?: boolean) {
     const color = "#" + abgr.substring(8, 10) + abgr.substring(6, 8) + abgr.substring(4, 6);
     if (currentAccent === color)
       return;
-    return win10.set('themeAccentColor', color);
+    changedAccentColor = true;
+    _atom.config.set('win10-ui.themeAccentColor', color);
+    setTimeout(function() {
+      changedAccentColor = false;
+    }, 100);
   });
 }
 const reset = function() {
@@ -79,23 +84,24 @@ const win10 = {
       default: 12
     }
   },
-  // Configuration helpers
-  get: function(key) {
-    return _atom.config.get(`win10-ui.${key}`);
-  },
-  set: function(key, value) {
-    return _atom.config.set(`win10-ui.${key}`, value);
-  },
   activate: function(state) {
     compositeDisposable = new atom.CompositeDisposable;
     compositeDisposable.add(_atom.config.onDidChange(`win10-ui.fontSize`, writeConfig));
     compositeDisposable.add(_atom.config.onDidChange(`win10-ui.useSystemAccentColor`, function(data) {
       try{clearInterval(updateInterval)}catch(e){}
-      if (isWin10or8 && data.newValue)
+      if (isWin10or8 && data.newValue) {
         updateInterval = setInterval(updateAccent, 5000);
+        updateAccent();
+      }
     }));
-    compositeDisposable.add(_atom.config.onDidChange(`win10-ui.themeAccentColor`, writeConfig));
-    if (isWin10or8 && win10.get("useSystemAccentColor")) {
+    compositeDisposable.add(_atom.config.onDidChange(`win10-ui.themeAccentColor`, function() {
+      if(changedAccentColor)
+        changedAccentColor = false;
+      else
+        _atom.config.set(`win10-ui.useSystemAccentColor`, false);
+      writeConfig();
+    }));
+    if (isWin10or8 && _atom.config.get("win10-ui.useSystemAccentColor")) {
       try{clearInterval(updateInterval)}catch(e){}
       updateInterval = setInterval(updateAccent, 5000);
       currentAccent = undefined;
