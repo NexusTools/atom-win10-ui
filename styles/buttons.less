@@ -26,7 +26,7 @@ select.form-control {
   &:active {
     background-color: darken(@bg, 15%) !important;
   }
-  .color () when (lightness(@bg) > 50%) {
+  .color () when (lightness(@bg) > @theme-lightness-threshold) {
     color: darken(@bg, 50%) !important;
     &.selected,
     &.selected:focus {
@@ -40,7 +40,7 @@ select.form-control {
       color: black !important;
     }
   }
-  .color () when (lightness(@bg) <= 50%) {
+  .color () when (lightness(@bg) <= @theme-lightness-threshold) {
     color: lighten(@bg, 50%) !important;
     &.selected,
     &.selected:focus {

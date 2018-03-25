@@ -12,3 +12,6 @@
 ## 0.4.1
 * Fixed button text color with darker colours
 * Setting an accent colour now disables the use system accent color option as opposed to fighting with the user
+
+## 0.4.2
+* Added lightness threshold controls

@@ -25,7 +25,7 @@ const WINDOWS_ACCENT_KEY_REG = isWin10or8 ? new registry({
   key: '\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Accent'
 }) : undefined;
 const writeConfig = function() {
-  fs.writeFile(configPath, `@theme-font-size: ${_atom.config.get('win10-ui.fontSize')}px;\r\n@theme-accent-color: ${_atom.config.get('win10-ui.themeAccentColor').toHexString()};`, function(err) {
+  fs.writeFile(configPath, `@theme-font-size: ${_atom.config.get('win10-ui.fontSize')}px;\r\n@theme-accent-color: ${_atom.config.get('win10-ui.themeAccentColor').toHexString()};\r\n@theme-lightness-threshold: ${_atom.config.get('win10-ui.lightnessThreshold')}%;`, function(err) {
     if(err)
       console.error(err.stack);
     else
@@ -66,7 +66,7 @@ const win10 = {
     themeAccentColor: {
       order: 1,
       type: 'color',
-      default: '#0078D7'
+      default: '#edde2c'
     },
     useSystemAccentColor: {
       order: 2,
@@ -77,16 +77,25 @@ const win10 = {
     },
     fontSize: {
       order: 3,
-      description: 'Change the UI font size. (Between 10 and 20)',
+      description: 'Change the UI font size. (Between 8 and 20)',
       type: 'integer',
-      minimum: 10,
+      minimum: 8,
       maximum: 20,
       default: 12
+    },
+    lightnessThreshold: {
+      order: 4,
+      description: 'Decide when the text changes to black (Between 0 and 100)',
+      type: 'integer',
+      minimum: 0,
+      maximum: 100,
+      default: 65
     }
   },
   activate: function(state) {
     compositeDisposable = new atom.CompositeDisposable;
     compositeDisposable.add(_atom.config.onDidChange(`win10-ui.fontSize`, writeConfig));
+    compositeDisposable.add(_atom.config.onDidChange(`win10-ui.lightnessThreshold`, writeConfig));
     compositeDisposable.add(_atom.config.onDidChange(`win10-ui.useSystemAccentColor`, function(data) {
       try{clearInterval(updateInterval)}catch(e){}
       if (isWin10or8 && data.newValue) {
