@@ -5,8 +5,42 @@
 // Used to color git status
 
 .status          { color: @text-color; }
-.status-added    { color: @text-color-success; } // green
-.status-ignored  { color: @text-color-subtle; }  // faded
-.status-modified { color: @text-color-warning; } // orange
-.status-removed  { color: @text-color-error; }   // red
-.status-renamed  { color: @text-color-info; }    // blue
+.status-added    {
+  .color() when (@background-color-dark > 50%) {
+    color: @text-color-success;
+  }
+  .color() when (@background-color-dark <= 50%) {
+    color: darken(@text-color-success, 40%);
+  }
+  .color;
+} // green
+.status-ignored  {
+  color: @text-color-subtle;
+}  // faded
+.status-modified {
+  .color() when (@background-color-dark > 50%) {
+    color: @text-color-warning;
+  }
+  .color() when (@background-color-dark <= 50%) {
+    color: darken(@text-color-warning, 40%);
+  }
+  .color;
+} // orange
+.status-removed  {
+  .color() when (@background-color-dark > 50%) {
+    color: @text-color-error;
+  }
+  .color() when (@background-color-dark <= 50%) {
+    color: darken(@text-color-error, 40%);
+  }
+  .color;
+}   // red
+.status-renamed  {
+  .color() when (@background-color-dark > 50%) {
+    color: @text-color-info;
+  }
+  .color() when (@background-color-dark <= 50%) {
+    color: darken(@text-color-info, 40%);
+  }
+  .color;
+}    // blue

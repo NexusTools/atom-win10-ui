@@ -11,22 +11,25 @@ select.form-control {
   font-size: @font-size;
   transition: background .2s;
   padding: 2px 8px;
-  height: auto;
+}
+.select-container .btn {
+  height: 31px;
+  line-height: 31px;
 }
 .btn-color(@bg) {
   &.selected,
   &.selected:focus {
-    background-color: darken(@bg, 15%) !important;
+    background-color: darken(@bg, 8%) !important;
   }
   &:hover,
   &:focus {
     outline: none !important;
-    background-color: lighten(@bg, 15%) !important;
+    background-color: lighten(@bg, 8%) !important;
   }
   &:active {
-    background-color: darken(@bg, 15%) !important;
+    background-color: darken(@bg, 8%) !important;
   }
-  .color () when (lightness(@bg) > @theme-lightness-threshold) {
+  .color () when (@accent-color-dark <= 50%) {
     color: darken(@bg, 50%) !important;
     &.selected,
     &.selected:focus {
@@ -40,7 +43,7 @@ select.form-control {
       color: black !important;
     }
   }
-  .color () when (lightness(@bg) <= @theme-lightness-threshold) {
+  .color () when (@accent-color-dark > 50%) {
     color: lighten(@bg, 50%) !important;
     &.selected,
     &.selected:focus {

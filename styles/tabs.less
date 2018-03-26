@@ -10,7 +10,7 @@
   border-bottom: 1px solid @base-border-color;
 
   .tab {
-    .color () when (lightness(@tab-bar-background-color) > @theme-lightness-threshold) {
+    .color () when (@accent-color-dark <= 50%) {
       &.active,
       .close-icon:hover {
         color: black;
@@ -20,7 +20,7 @@
         color: darken(@tab-bar-background-color, 50%);
       }
     }
-    .color () when (lightness(@tab-bar-background-color) <= @theme-lightness-threshold) {
+    .color () when (@accent-color-dark > 50%) {
       &.active,
       .close-icon:hover {
         color: white;

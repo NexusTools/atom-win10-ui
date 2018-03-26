@@ -28,6 +28,18 @@
   }
 }
 
+.list-group .selected::before, .list-tree .selected::before {
+  background-color: @accent-color;
+}
+
+.settings-view .config-menu .nav > li.active > a,
+.settings-view .config-menu .nav > li > a:hover {
+  background: @background-color-selected;
+  color: @text-color-selected;
+}
+.settings-view .config-menu .nav > li > a:hover {
+  background: @background-color-highlight;
+}
 
 // Select List -------------------
 .select-list {
