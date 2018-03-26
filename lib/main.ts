@@ -19,7 +19,6 @@ const isWin10or8 = isWin10 || isWin8;
 
 var changedAccentColor: boolean;
 const stylesPath = path.resolve(__dirname, "../styles");
-const inputVariables = fs.readFileSync(path.resolve(stylesPath, "ui-variables.less.input"), "utf-8");
 const variablesFile = path.resolve(stylesPath, "ui-variables.less");
 var currentAccent: string = _atom.config.get('win10-ui.themeAccentColor');
 const ACCENT_VALUE = isWin10 ? 'AccentColorMenu' : 'AccentColor';
@@ -63,19 +62,28 @@ const writeConfig = function() {
     `@text-color: ${_atom.config.get('win10-ui.themeForegroundColor').toHexString()};\n` +*/
     `@text-color-accent:  ${accentColorDark ? "lighten(@text-color, 40%)" : "darken(@text-color, 40%)"};\n` +
     `@text-color-accent-contrast:  ${accentColorDark ? "white" : "black"};`;
-  fs.writeFile(variablesFile, inputVariables.replace(/{{config}}/, config), function(err) {
+  fs.readFile(path.resolve(stylesPath, "ui-variables.less.input"), "utf-8", function(err, inputVariables) {
     if(err)
-      console.error(err.stack);
+      throw err;
     else
-      for (const theme of _atom.themes.getActiveThemes()) {
-        theme.reloadStylesheets();
-      }
+      fs.writeFile(variablesFile, inputVariables.replace(/{{config}}/, config), function(err) {
+        if(err)
+          throw err;
+        else
+          for (const theme of _atom.themes.getActiveThemes()) {
+            theme.reloadStylesheets();
+          }
+      });
   });
+
 }
-const updateAccent = function() {
+const updateAccent = function(writeOnFailure?: boolean) {
   return WINDOWS_ACCENT_KEY_REG.get(ACCENT_VALUE, function(error, item) {
-    if (error)
+    if (error) {
+      if (writeOnFailure)
+        writeConfig();
       throw new Error("Issue with windows registry lookup: " + error);
+    }
 
     const abgr = item.value;
     const color = "#" + abgr.substring(8, 10) + abgr.substring(6, 8) + abgr.substring(4, 6);
@@ -188,8 +196,9 @@ const win10 = {
       updateInterval = setInterval(updateAccent, 1500);
       console.log("Started updateAccent interval");
       currentAccent = undefined;
-      updateAccent();
-    }
+      updateAccent(true);
+    } else
+      writeConfig();
   },
   deactivate: reset,
   destroy: reset
