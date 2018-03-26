@@ -4,43 +4,91 @@
 
 // Used to color git status
 
-.status          { color: @text-color; }
+.status          { color: @text-color !important; }
 .status-added    {
   .color() when (@background-color-dark > 50%) {
-    color: @text-color-success;
+    color: @text-color-success !important;
   }
   .color() when (@background-color-dark <= 50%) {
-    color: darken(@text-color-success, 40%);
+    color: darken(@text-color-success, 40%) !important;
   }
   .color;
+  .is-selected &,
+  .selected &,
+  &.is-selected,
+  &.selected {
+    .color() when (@accent-color-is-dark >= 1) {
+      color: @text-color-success !important;
+    }
+    .color() when (@accent-color-is-dark < 1) {
+      color: darken(@text-color-success, 40%) !important;
+    }
+    .color;
+  }
 } // green
 .status-ignored  {
-  color: @text-color-subtle;
+  color: @text-color-subtle !important;
 }  // faded
 .status-modified {
   .color() when (@background-color-dark > 50%) {
-    color: @text-color-warning;
+    color: @text-color-warning !important;
   }
   .color() when (@background-color-dark <= 50%) {
-    color: darken(@text-color-warning, 40%);
+    color: darken(@text-color-warning, 40%) !important;
   }
   .color;
+  .is-selected &,
+  .selected &,
+  &.is-selected,
+  &.selected {
+    .color() when (@accent-color-is-dark >= 1) {
+      color: @text-color-warning !important;
+    }
+    .color() when (@accent-color-is-dark < 1) {
+      color: darken(@text-color-warning, 40%) !important;
+    }
+    .color;
+  }
 } // orange
 .status-removed  {
   .color() when (@background-color-dark > 50%) {
-    color: @text-color-error;
+    color: @text-color-error !important;
   }
   .color() when (@background-color-dark <= 50%) {
-    color: darken(@text-color-error, 40%);
+    color: darken(@text-color-error, 40%) !important;
   }
   .color;
+  .is-selected &,
+  .selected &,
+  &.is-selected,
+  &.selected {
+    .color() when (@accent-color-is-dark >= 1) {
+      color: @text-color-error !important;
+    }
+    .color() when (@accent-color-is-dark < 1) {
+      color: darken(@text-color-error, 40%) !important;
+    }
+    .color;
+  }
 }   // red
 .status-renamed  {
   .color() when (@background-color-dark > 50%) {
-    color: @text-color-info;
+    color: @text-color-info !important;
   }
   .color() when (@background-color-dark <= 50%) {
-    color: darken(@text-color-info, 40%);
+    color: darken(@text-color-info, 40%) !important;
   }
   .color;
+  .is-selected &,
+  .selected &,
+  &.is-selected,
+  &.selected {
+    .color() when (@accent-color-is-dark >= 1) {
+      color: @text-color-info !important;
+    }
+    .color() when (@accent-color-is-dark < 1) {
+      color: darken(@text-color-info, 40%) !important;
+    }
+    .color;
+  }
 }    // blue

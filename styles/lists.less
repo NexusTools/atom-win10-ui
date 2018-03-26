@@ -12,8 +12,8 @@
 
     // We want to highlight the background of the list items because we dont know their size.
     &.selected {
-      color: @text-color-selected;
-      background-color: @background-color-selected;
+      color: @text-color-accent-contrast;
+      background-color: @accent-color;
       &:before{ display: none; }
     }
   }
@@ -24,7 +24,8 @@
 .list-tree {
   color: @text-color;
   .selected {
-    color: @text-color-selected;
+    background-color: @accent-color;
+    color: @text-color-accent-contrast;
   }
 }
 
@@ -34,11 +35,11 @@
 
 .settings-view .config-menu .nav > li.active > a,
 .settings-view .config-menu .nav > li > a:hover {
-  background: @background-color-selected;
-  color: @text-color-selected;
+  color: @text-color-accent-contrast;
+  background: @accent-color;
 }
 .settings-view .config-menu .nav > li > a:hover {
-  background: @background-color-highlight;
+  background: @accent-color-light;
 }
 
 // Select List -------------------

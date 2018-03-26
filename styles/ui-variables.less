@@ -10,22 +10,36 @@
 // Try to edit some of the values below to see your theme change.
 // A good start is to change the color of the `@base-background-color` variable.
 
+// Theme Name
+@ui-theme-name: win10-ui;
+@transition-time: 200ms;
+
+// User Configuration
 @font-size: 12px;
-
 @accent-color: #edde2c;
-@accent-color-dark: 0%;
+@accent-color-is-dark: 0;
+@text-color-accent:  darken(@text-color, 40%);
+@text-color-accent-contrast:  black;
 
-@text-color-selected:  darken(@text-color, 50%);
+// Accent
+@accent-color-light: lighten(@accent-color, 12%);
+@accent-color-dark: darken(@accent-color, 12%);
 
 // Text Colors
 @text-color:           hsl(0,0%,66%);
 @text-color-subtle:    hsl(0,0%,50%);
 @text-color-highlight: hsl(0,0%,94%);
+@text-color-selected:   hsl(0,0%,100%);
 
 @text-color-info:    hsl(219,  79%, 66%);
 @text-color-success: hsl(140,  44%, 62%);
 @text-color-warning: hsl( 36,  60%, 72%);
 @text-color-error:   hsl(  9, 100%, 64%);
+
+// Base colors
+@background-color-dark: 100%;
+@base-background-color: hsl(222,6%,22%);
+@base-border-color:     darken(@base-background-color, 8%);
 
 // Background colors
 @background-color-info:    hsl(208, 100%, 50%);
@@ -33,14 +47,9 @@
 @background-color-warning: hsl(32,   60%, 50%);
 @background-color-error:   hsl(0,    70%, 50%);
 
-@background-color-highlight: @accent-color;
-@background-color-selected:  lighten(@accent-color, 5%);
+@background-color-highlight: lighten(@base-background-color, 5%);
+@background-color-selected:  lighten(@base-background-color, 10%);
 @app-background-color:       darken(@base-background-color, 5%);
-
-// Base colors
-@background-color-dark: 100%;
-@base-background-color: hsl(222,6%,22%);
-@base-border-color:     darken(@base-background-color, 8%);
 
 // Component colors
 @pane-item-background-color: @base-background-color;

@@ -9,7 +9,7 @@
 select.form-control {
   border-radius: 0;
   font-size: @font-size;
-  transition: background .2s;
+  transition: background @transition-time;
   padding: 2px 8px;
 }
 .select-container .btn {
@@ -19,43 +19,33 @@ select.form-control {
 .btn-color(@bg) {
   &.selected,
   &.selected:focus {
-    background-color: darken(@bg, 8%) !important;
+    background-color: darken(@bg, 12%) !important;
   }
   &:hover,
   &:focus {
     outline: none !important;
-    background-color: lighten(@bg, 8%) !important;
+    background-color: lighten(@bg, 12%) !important;
   }
   &:active {
-    background-color: darken(@bg, 8%) !important;
+    background-color: darken(@bg, 12%) !important;
   }
-  .color () when (@accent-color-dark <= 50%) {
-    color: darken(@bg, 50%) !important;
-    &.selected,
-    &.selected:focus {
-      color: black !important;
-    }
+  .color () when ((5 * green(@bg) + 2 * red(@bg) + blue(@bg)) > 8 * 128) {
     &:hover,
-    &:focus {
+    &:focus,
+    &:active,
+    &.selected {
       color: black !important;
     }
-    &:active {
-      color: black !important;
-    }
+    color: darken(@bg, 40%) !important;
   }
-  .color () when (@accent-color-dark > 50%) {
-    color: lighten(@bg, 50%) !important;
-    &.selected,
-    &.selected:focus {
-      color: white !important;
-    }
+  .color () when ((5 * green(@bg) + 2 * red(@bg) + blue(@bg)) <= 8 * 128) {
     &:hover,
-    &:focus {
+    &:focus,
+    &:active,
+    &.selected {
       color: white !important;
     }
-    &:active {
-      color: white !important;
-    }
+    color: lighten(@bg, 40%) !important;
   }
   .color;
   background-color: @bg !important;

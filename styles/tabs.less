@@ -10,37 +10,24 @@
   border-bottom: 1px solid @base-border-color;
 
   .tab {
-    .color () when (@accent-color-dark <= 50%) {
-      &.active,
-      .close-icon:hover {
-        color: black;
-      }
-      &,
-      &.active .close-icon:hover {
-        color: darken(@tab-bar-background-color, 50%);
-      }
-    }
-    .color () when (@accent-color-dark > 50%) {
-      &.active,
-      .close-icon:hover {
-        color: white;
-      }
-      &,
-      &.active .close-icon:hover {
-        color: lighten(@tab-bar-background-color, 50%);
-      }
-    }
     &:hover,
     &.active,
     &.is-dragging {
-      background-color: lighten(@tab-bar-background-color, 15%);
+      background-color: @accent-color-light;
     }
-    .color;
+    &.active,
+    .close-icon:hover {
+      color: @text-color-accent-contrast;
+    }
+    &,
+    &.active .close-icon:hover {
+      color: @text-color-accent;
+    }
 
     height: @tab-height;
     line-height: @tab-height;
     font-size: @font-size;
-    transition: background .2s;
+    transition: background @transition-time;
     border-right: 1px solid @tab-border-color;
     background-color: @tab-background-color;
 

@@ -55,13 +55,14 @@ const writeConfig = function() {
   const accentColor = _atom.config.get('win10-ui.themeAccentColor').toHexString();
   //const backgroundColor = _atom.config.get('win10-ui.themeBackgroundColor').toHexString();
   const accentColorDark = isDark(accentColor);
-  const config = `@font-size: ${_atom.config.get('win10-ui.fontSize')}px;\n\n` +
+  const config = `@font-size: ${_atom.config.get('win10-ui.fontSize')}px;\n` +
     `@accent-color: ${accentColor};\n` +
-    `@accent-color-dark: ${accentColorDark ? 100 : 0}%;\n\n` +
+    `@accent-color-is-dark: ${accentColorDark ? 1 : 0};\n` +
     /*`@base-background-color: ${backgroundColor};\n` +
     `@background-color-dark: ${isDark(backgroundColor) ? 100 : 0}%;\n\n` +
     `@text-color: ${_atom.config.get('win10-ui.themeForegroundColor').toHexString()};\n` +*/
-    `@text-color-selected:  ${accentColorDark ? "lighten(@text-color, 50%)" : "darken(@text-color, 50%)"};`;
+    `@text-color-accent:  ${accentColorDark ? "lighten(@text-color, 40%)" : "darken(@text-color, 40%)"};\n` +
+    `@text-color-accent-contrast:  ${accentColorDark ? "white" : "black"};`;
   fs.writeFile(variablesFile, inputVariables.replace(/{{config}}/, config), function(err) {
     if(err)
       console.error(err.stack);
@@ -171,9 +172,11 @@ const win10 = {
     compositeDisposable.add(_atom.config.onDidChange(`win10-ui.useSystemAccentColor`, function(data) {
       try{clearInterval(updateInterval)}catch(e){}
       if (isWin10or8 && data.newValue) {
-        updateInterval = setInterval(updateAccent, 5000);
+        updateInterval = setInterval(updateAccent, 1500);
+        console.log("Started updateAccent interval");
         updateAccent();
-      }
+      } else
+        console.log("Stopped updateAccent interval");
     }));
     compositeDisposable.add(_atom.config.onDidChange(`win10-ui.themeAccentColor`, function() {
       if(!changedAccentColor)
@@ -182,7 +185,8 @@ const win10 = {
     }));
     if (isWin10or8 && _atom.config.get("win10-ui.useSystemAccentColor")) {
       try{clearInterval(updateInterval)}catch(e){}
-      updateInterval = setInterval(updateAccent, 5000);
+      updateInterval = setInterval(updateAccent, 1500);
+      console.log("Started updateAccent interval");
       currentAccent = undefined;
       updateAccent();
     }

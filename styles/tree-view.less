@@ -14,7 +14,13 @@
   color: @text-color;
   background-color: @tree-view-background-color;
 
-  .list-item.selected {
-    color: @text-color-selected;
+  .list-item {
+    &.selected,
+    &:focus {
+      &::before {
+        background-color: @accent-color;
+      }
+      color: @text-color-accent-contrast;
+    }
   }
 }
