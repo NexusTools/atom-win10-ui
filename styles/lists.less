@@ -24,8 +24,10 @@
 .list-tree {
   color: @text-color;
   .selected {
-    background-color: @accent-color;
     color: @text-color-accent-contrast;
+    &:before {
+      background-color: @accent-color;
+    }
   }
 }
 

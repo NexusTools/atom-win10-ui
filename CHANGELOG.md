@@ -1,4 +1,7 @@
 ## 0.4.7
+* Fixed list-tree branches highlighting entire contents instead of just selected item
+
+## 0.4.7
 * ALWAYS write updated stylesheet at activation
 
 ## 0.4.6
