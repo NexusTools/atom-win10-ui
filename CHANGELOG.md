@@ -1,4 +1,8 @@
-## 0.4.7
+## 0.4.9
+* Fixed git status colors on branch coloring items too
+* Fixed Use System Accent Color unchecking itself on slow accent config updates
+
+## 0.4.8
 * Fixed list-tree branches highlighting entire contents instead of just selected item
 
 ## 0.4.7

@@ -4,15 +4,7 @@
 
 // Used to color git status
 
-.status          { color: @text-color !important; }
 .status-added    {
-  .color() when (@background-color-dark > 50%) {
-    color: @text-color-success !important;
-  }
-  .color() when (@background-color-dark <= 50%) {
-    color: darken(@text-color-success, 40%) !important;
-  }
-  .color;
   .is-selected &,
   .selected &,
   &.is-selected,
@@ -23,20 +15,15 @@
     .color() when (@accent-color-is-dark < 1) {
       color: darken(@text-color-success, 40%) !important;
     }
-    .color;
+    &:before {
+      .color;
+    }
   }
 } // green
 .status-ignored  {
   color: @text-color-subtle !important;
 }  // faded
 .status-modified {
-  .color() when (@background-color-dark > 50%) {
-    color: @text-color-warning !important;
-  }
-  .color() when (@background-color-dark <= 50%) {
-    color: darken(@text-color-warning, 40%) !important;
-  }
-  .color;
   .is-selected &,
   .selected &,
   &.is-selected,
@@ -47,17 +34,12 @@
     .color() when (@accent-color-is-dark < 1) {
       color: darken(@text-color-warning, 40%) !important;
     }
-    .color;
+    &:before {
+      .color;
+    }
   }
 } // orange
 .status-removed  {
-  .color() when (@background-color-dark > 50%) {
-    color: @text-color-error !important;
-  }
-  .color() when (@background-color-dark <= 50%) {
-    color: darken(@text-color-error, 40%) !important;
-  }
-  .color;
   .is-selected &,
   .selected &,
   &.is-selected,
@@ -68,17 +50,12 @@
     .color() when (@accent-color-is-dark < 1) {
       color: darken(@text-color-error, 40%) !important;
     }
-    .color;
+    &:before {
+      .color;
+    }
   }
 }   // red
 .status-renamed  {
-  .color() when (@background-color-dark > 50%) {
-    color: @text-color-info !important;
-  }
-  .color() when (@background-color-dark <= 50%) {
-    color: darken(@text-color-info, 40%) !important;
-  }
-  .color;
   .is-selected &,
   .selected &,
   &.is-selected,
@@ -89,6 +66,8 @@
     .color() when (@accent-color-is-dark < 1) {
       color: darken(@text-color-info, 40%) !important;
     }
-    .color;
+    &:before {
+      .color;
+    }
   }
 }    // blue
