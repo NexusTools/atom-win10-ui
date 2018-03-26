@@ -1,4 +1,5 @@
-
+## 0.4.7
+* ALWAYS write updated stylesheet at activation
 
 ## 0.4.6
 * Updated changelog

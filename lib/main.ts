@@ -77,18 +77,21 @@ const writeConfig = function() {
   });
 
 }
-const updateAccent = function(writeOnFailure?: boolean) {
+const updateAccent = function(writeAlways?: boolean) {
   return WINDOWS_ACCENT_KEY_REG.get(ACCENT_VALUE, function(error, item) {
     if (error) {
-      if (writeOnFailure)
+      if (writeAlways)
         writeConfig();
       throw new Error("Issue with windows registry lookup: " + error);
     }
 
     const abgr = item.value;
     const color = "#" + abgr.substring(8, 10) + abgr.substring(6, 8) + abgr.substring(4, 6);
-    if (currentAccent === color)
+    if (currentAccent === color) {
+      if (writeAlways)
+        writeConfig();
       return;
+    }
     currentAccent = color;
     changedAccentColor = true;
     _atom.config.set('win10-ui.themeAccentColor', color);
