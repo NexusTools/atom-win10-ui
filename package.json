@@ -2,7 +2,7 @@
   "name": "win10-ui",
   "theme": "ui",
   "main": "lib/main",
-  "version": "0.4.7",
+  "version": "0.4.8",
   "description": "A windows 8/10 accent copying theme",
   "keywords": [
     "ui",
