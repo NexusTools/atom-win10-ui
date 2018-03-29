@@ -1,3 +1,7 @@
+## 0.4.10
+* Fixed scrollbars (added custom scrollbar style)
+* Made console output optional
+
 ## 0.4.9
 * Fixed git status colors on branch coloring items too
 * Fixed Use System Accent Color unchecking itself on slow accent config updates

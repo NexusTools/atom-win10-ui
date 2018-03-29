@@ -15,5 +15,8 @@
   },
   "dependencies": {
     "winreg": "^1.2.4"
+  },
+  "devDependencies": {
+    "@types/atom": "^1.25.0"
   }
 }
